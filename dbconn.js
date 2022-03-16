@@ -1,13 +1,13 @@
 const Sequelize = require("sequelize");
 const userModel = require("./models/user");
 
-const sequelize = new Sequelize("sequlize_prac", "root", "", {
+const sequelizeConnection = new Sequelize("sequlize_prac", "root", "", { // Db connection
   host: "localhost",
   dialect: "mysql", // Type of DB
 });
 
-sequelize
-  .authenticate()
+sequelizeConnection
+  .authenticate() // Connection process
   .then(() => {
     console.log("Connection has been established successfully.");
   })
@@ -15,9 +15,9 @@ sequelize
     console.error("Unable to connect to the database:");
   });
 
-const User = userModel(sequelize, Sequelize);
+const User = userModel(sequelizeConnection, Sequelize); //
 
 module.exports = {
-  sequelize,
+  sequelizeConnection,
   User,
 };
